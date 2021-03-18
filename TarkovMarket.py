@@ -45,12 +45,14 @@ def getInfo(apiKey):
 
     slots = j[0]["slots"]
 
-    return price, symbol, item, traderPrice, traderName, changeD, changeW, slots
+    link = j[0]["wikiLink"]
+
+    return price, symbol, item, traderPrice, traderName, changeD, changeW, slots, link
 
 
 while True:
     try:
-        price, symbol, item, traderPrice, traderName, changeD, changeW, slots= getInfo(apiKey)
+        price, symbol, item, traderPrice, traderName, changeD, changeW, slots, link = getInfo(apiKey)
 
         table = Table(show_header=True, header_style="bold cyan")
 
@@ -74,7 +76,7 @@ while True:
         else:
             table.add_column("Δ 7d", style="bold red")
 
-        table.add_row(item, "{}{:0,}".format(symbol, price), "{}{:0,}".format(symbol, int(price/slots)), traderName, "{}{:0,}".format(symbol, traderPrice), "{}%".format(changeD), "{}%".format(changeW))
+        table.add_row("[link={}]{}[/link]".format(link, item), "{}{:0,}".format(symbol, price), "{}{:0,}".format(symbol, int(price/slots)), traderName, "{}{:0,}".format(symbol, traderPrice), "{}%".format(changeD), "{}%".format(changeW))
         
         os.system("cls" if os.name == "nt" else "clear")
 
