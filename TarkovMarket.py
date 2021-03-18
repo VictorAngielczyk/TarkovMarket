@@ -3,6 +3,8 @@ from json import loads
 import os
 from rich.console import Console
 from rich.table import Table
+from SpeechRecognition import *
+
 
 print("Made by Victor Angel#4300\n")
 
@@ -17,32 +19,24 @@ def getJSON(item, apiKey):
     url = "https://tarkov-market.com/api/v1/item?q={}&x-api-key={}".format(item, apiKey)
 
     r = get(url)
-
     j = loads(r.text)
 
     return j
 
 
-def getInfo(apiKey):
+def getInfo(item, apiKey):
 
-    item = input("What item would you like to check? ")
+    # item = input("What item would you like to check? ")
 
     j = getJSON(item, apiKey)
 
     price = j[0]["price"]
-
     symbol = j[0]["traderPriceCur"]
-
     item = j[0]["name"]
-
     traderPrice = j[0]["traderPrice"]
-    
     traderName = j[0]["traderName"]
-
     changeD = j[0]["diff24h"]
-    
     changeW = j[0]["diff7days"]
-
     slots = j[0]["slots"]
 
     return price, symbol, item, traderPrice, traderName, changeD, changeW, slots
@@ -50,18 +44,13 @@ def getInfo(apiKey):
 
 while True:
     try:
-        price, symbol, item, traderPrice, traderName, changeD, changeW, slots= getInfo(apiKey)
+        price, symbol, item, traderPrice, traderName, changeD, changeW, slots = getInfo(speechToText(), apiKey)
 
         table = Table(show_header=True, header_style="bold cyan")
-
         table.add_column("Item")
-
         table.add_column("Price")
-
         table.add_column("Per Slot")
-        
         table.add_column("Trader")
-
         table.add_column("Trader Price")
 
         if changeD >= 0:
