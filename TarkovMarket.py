@@ -4,17 +4,15 @@ import os
 from rich.console import Console
 from rich.table import Table
 
-print("Made by Victor Angel#4300\nUsing API made by Tarkov-Market\n")
-
-apiKey = "oC0gJBLoR17SFv8T"
+print("Made by Victor Angel#4300\n")
 
 out = Console()
 
 os.system("title Tarkov Market Lookup")
 
-def getJSON(item, apiKey):
+def getJSON(item):
 
-    url = "https://tarkov-market.com/api/v1/item?q={}&x-api-key={}".format(item, apiKey)
+    url = "https://lively-brook-a453.victorangel.workers.dev/market?item={}".format(item)
 
     r = get(url)
 
@@ -23,11 +21,11 @@ def getJSON(item, apiKey):
     return j
 
 
-def getInfo(apiKey):
+def getInfo():
 
     item = input("What item would you like to check? ")
 
-    j = getJSON(item, apiKey)
+    j = getJSON(item)
 
     price = j[0]["price"]
 
@@ -52,7 +50,7 @@ def getInfo(apiKey):
 
 while True:
     try:
-        price, symbol, item, traderPrice, traderName, changeD, changeW, slots, link = getInfo(apiKey)
+        price, symbol, item, traderPrice, traderName, changeD, changeW, slots, link = getInfo()
 
         table = Table(show_header=True, header_style="bold cyan")
 
