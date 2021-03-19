@@ -22,7 +22,7 @@ GOOGLE_CLOUD_SPEECH_CREDENTIALS = r"""{
 def speechToText():
     r = sr.Recognizer()
     with sr.Microphone() as source:
-        print("Say something!")
+        print("\nSay something!")
         audio = r.listen(source)
 
     # GOOGLE_CLOUD_SPEECH_CREDENTIALS = "None"
@@ -36,6 +36,7 @@ def speechToText():
         print("Output: " + textOut)
     except sr.UnknownValueError:
         print("Could not understand!")
+        return None
     except sr.RequestError as e:
         print("Request failed; {0}".format(e))
 

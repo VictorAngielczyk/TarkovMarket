@@ -46,31 +46,49 @@ def getInfo(item, apiKey):
 while True:
     try:
         if keyboard.is_pressed('home'):
-            price, symbol, item, traderPrice, traderName, changeD, changeW, slots = getInfo(str(speechToText()), apiKey)
-            textToSpeech(str(price))
+            speechText = speechToText()
 
-            table = Table(show_header=True, header_style="bold cyan")
-            table.add_column("Item")
-            table.add_column("Price")
-            table.add_column("Per Slot")
-            table.add_column("Trader")
-            table.add_column("Trader Price")
+            if speechText != None:
+                price, symbol, item, traderPrice, traderName, changeD, changeW, slots = getInfo(speechText, apiKey)
 
-            if changeD >= 0:
-                table.add_column("Δ 24h", style="bold green")
+                roundedPrice = price
+                priceText = str(price)
+                if price >= 10000000:
+                    priceText = priceText[:-6] + " million"
+                elif price >= 1000000:
+                    priceText = priceText[:-6] + " million" + priceText[-6:-3] + " K"
+                elif price >= 10000:
+                    if price >= 100000:
+                        roundedPrice = round(price, -3)
+                    roundedPrice = round(price, -2)
+                    priceText = str(roundedPrice)[:-3] + " K"
+
+                textToSpeech(priceText)
+
+                table = Table(show_header=True, header_style="bold cyan")
+                table.add_column("Item")
+                table.add_column("Price")
+                table.add_column("Per Slot")
+                table.add_column("Trader")
+                table.add_column("Trader Price")
+
+                if changeD >= 0:
+                    table.add_column("Δ 24h", style="bold green")
+                else:
+                    table.add_column("Δ 24h", style="bold red")
+
+                if changeW >= 0:
+                    table.add_column("Δ 7d", style="bold green")
+                else:
+                    table.add_column("Δ 7d", style="bold red")
+
+                table.add_row(item, "{}{:0,}".format(symbol, price), "{}{:0,}".format(symbol, int(price/slots)), traderName, "{}{:0,}".format(symbol, traderPrice), "{}%".format(changeD), "{}%".format(changeW))
+                
+                os.system("cls" if os.name == "nt" else "clear")
+
+                out.print(table)
             else:
-                table.add_column("Δ 24h", style="bold red")
-
-            if changeW >= 0:
-                table.add_column("Δ 7d", style="bold green")
-            else:
-                table.add_column("Δ 7d", style="bold red")
-
-            table.add_row(item, "{}{:0,}".format(symbol, price), "{}{:0,}".format(symbol, int(price/slots)), traderName, "{}{:0,}".format(symbol, traderPrice), "{}%".format(changeD), "{}%".format(changeW))
-            
-            os.system("cls" if os.name == "nt" else "clear")
-
-            out.print(table)
+                textToSpeech("Could not understand!")
 
     except Exception as e:
         print("Nothing found! / Error:",e)
