@@ -4,7 +4,7 @@ import os
 from rich.console import Console
 from rich.table import Table
 
-print("Made by Victor Angel#4300\n")
+print("Made by Victor Angel#4300\nUsing API made by Tarkov-Market\n")
 
 apiKey = "oC0gJBLoR17SFv8T"
 
