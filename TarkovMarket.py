@@ -12,7 +12,7 @@ os.system("title Tarkov Market Lookup")
 
 def getJSON(item):
 
-    url = "https://lively-brook-a453.victorangel.workers.dev/market?item={}".format(item)
+    url = "http://api.victorangel.xyz/market?item={}".format(item)
 
     r = get(url)
 
