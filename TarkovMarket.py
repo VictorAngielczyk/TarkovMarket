@@ -15,7 +15,7 @@ os.system("title Tarkov Market Lookup")
 
 def getJSON(item):
 
-    url = "http://api.victorangel.xyz/market?item={}".format(item)
+    url = "https://api.victorangel.xyz/market?item={}".format(item)
 
     r = get(url)
 
@@ -81,7 +81,7 @@ while True:
 
         table.add_column("TM")
 
-        table.add_row("[link={}]{}[/link]".format(link, item), "{}{:0,}".format(symbol, price), "{}{:0,}".format(symbol, int(price/slots)), traderName, "{}{:0,}".format(symbol, traderPrice), "{}%".format(changeD), "{}%".format(changeW), "[link={}]🔗[/link]".format(tmLink))
+        table.add_row("[link={}]{}[/link]".format(link, item), "{}{:0,}".format(symbol, price), "{}{:0,}".format(symbol, int(price/slots)), traderName, "{}{:0,}".format(symbol, traderPrice), "{}%".format(changeD), "{}%".format(changeW), "[link={}]TM[/link]".format(tmLink))
         
         os.system("cls" if os.name == "nt" else "clear")
 
