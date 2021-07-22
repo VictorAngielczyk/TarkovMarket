@@ -4,7 +4,10 @@ import os
 from rich.console import Console
 from rich.table import Table
 
-print("Made by Victor Angel#4300\n")
+os.system("cls" if os.name == "nt" else "clear")
+
+print("---------------------------------------------\nMade by Ṿictor#4300\nAll information provided by tarkov-market.com\n---------------------------------------------\n")
+
 
 out = Console()
 
@@ -45,12 +48,14 @@ def getInfo():
 
     link = j[0]["wikiLink"]
 
-    return price, symbol, item, traderPrice, traderName, changeD, changeW, slots, link
+    tmLink = j[0]["link"]
+
+    return price, symbol, item, traderPrice, traderName, changeD, changeW, slots, link, tmLink
 
 
 while True:
     try:
-        price, symbol, item, traderPrice, traderName, changeD, changeW, slots, link = getInfo()
+        price, symbol, item, traderPrice, traderName, changeD, changeW, slots, link, tmLink = getInfo()
 
         table = Table(show_header=True, header_style="bold cyan")
 
@@ -74,7 +79,9 @@ while True:
         else:
             table.add_column("Δ 7d", style="bold red")
 
-        table.add_row("[link={}]{}[/link]".format(link, item), "{}{:0,}".format(symbol, price), "{}{:0,}".format(symbol, int(price/slots)), traderName, "{}{:0,}".format(symbol, traderPrice), "{}%".format(changeD), "{}%".format(changeW))
+        table.add_column("TM")
+
+        table.add_row("[link={}]{}[/link]".format(link, item), "{}{:0,}".format(symbol, price), "{}{:0,}".format(symbol, int(price/slots)), traderName, "{}{:0,}".format(symbol, traderPrice), "{}%".format(changeD), "{}%".format(changeW), "[link={}]🔗[/link]".format(tmLink))
         
         os.system("cls" if os.name == "nt" else "clear")
 
